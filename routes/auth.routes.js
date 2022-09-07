@@ -2,13 +2,15 @@ const { crearUsuario, login, revalidarToken } = require("../controllers/auth.con
 
 const { Router } = require('express');
 const { check } = require("express-validator");
+const { validarCampos } = require("../middlewares/validar-campos");
 
 const router = Router();
 
 router.post('/new', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('email', 'El email es obligatorio').isEmail(),
-    check('password', 'La contraseña es obligatoria').isLength({ min:6 })
+    check('password', 'La contraseña es obligatoria').isLength({ min:6 }),
+    validarCampos
 ], crearUsuario)
 
 //Login de usuario
